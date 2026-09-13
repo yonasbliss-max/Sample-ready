@@ -1,119 +1,1783 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>LinkNova — Smart Link Analytics</title>
+<title>LinkNova — Smart Link Analytics</title>
 
-  <link rel="stylesheet" href="style.css">
+<meta name="theme-color" content="#080812">
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    min-height:100vh;
+    font-family:
+        Inter,
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
+
+    color:#fff;
+
+    background:
+        radial-gradient(
+            circle at 15% 15%,
+            rgba(124,58,237,.28),
+            transparent 32%
+        ),
+        radial-gradient(
+            circle at 85% 25%,
+            rgba(6,182,212,.20),
+            transparent 30%
+        ),
+        radial-gradient(
+            circle at 50% 100%,
+            rgba(168,85,247,.18),
+            transparent 35%
+        ),
+        #05050b;
+
+    overflow-x:hidden;
+}
+
+
+/* =========================
+   BACKGROUND
+========================= */
+
+.grid{
+    position:fixed;
+    inset:0;
+
+    pointer-events:none;
+
+    opacity:.16;
+
+    background-image:
+        linear-gradient(
+            rgba(255,255,255,.04) 1px,
+            transparent 1px
+        ),
+        linear-gradient(
+            90deg,
+            rgba(255,255,255,.04) 1px,
+            transparent 1px
+        );
+
+    background-size:50px 50px;
+
+    mask-image:
+        linear-gradient(
+            to bottom,
+            black,
+            transparent
+        );
+}
+
+.orb{
+    position:fixed;
+
+    width:350px;
+    height:350px;
+
+    border-radius:50%;
+
+    filter:blur(100px);
+
+    pointer-events:none;
+
+    opacity:.20;
+
+    animation:orbMove 12s ease-in-out infinite alternate;
+}
+
+.orb.one{
+    background:#7c3aed;
+    top:-120px;
+    left:-100px;
+}
+
+.orb.two{
+    background:#06b6d4;
+    right:-130px;
+    top:35%;
+    animation-delay:3s;
+}
+
+.orb.three{
+    background:#ec4899;
+    left:35%;
+    bottom:-180px;
+    animation-delay:6s;
+}
+
+@keyframes orbMove{
+
+    from{
+        transform:translate(0,0) scale(1);
+    }
+
+    to{
+        transform:translate(80px,60px) scale(1.25);
+    }
+}
+
+
+/* =========================
+   NAVBAR
+========================= */
+
+.navbar{
+
+    position:relative;
+    z-index:20;
+
+    height:76px;
+
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+
+    padding:0 6%;
+
+    border-bottom:
+        1px solid rgba(255,255,255,.08);
+
+    background:
+        rgba(5,5,12,.55);
+
+    backdrop-filter:blur(25px);
+}
+
+.logo{
+
+    display:flex;
+    align-items:center;
+    gap:11px;
+
+    font-size:21px;
+    font-weight:800;
+}
+
+.logoIcon{
+
+    width:38px;
+    height:38px;
+
+    display:grid;
+    place-items:center;
+
+    border-radius:13px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #8b5cf6,
+            #06b6d4
+        );
+
+    box-shadow:
+        0 0 30px rgba(124,58,237,.5);
+
+    animation:logoPulse 3s infinite;
+}
+
+@keyframes logoPulse{
+
+    0%,100%{
+        box-shadow:
+            0 0 20px rgba(124,58,237,.35);
+    }
+
+    50%{
+        box-shadow:
+            0 0 45px rgba(6,182,212,.55);
+    }
+}
+
+.navRight{
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
+
+.navLink{
+
+    color:#b7b7c8;
+
+    text-decoration:none;
+
+    padding:10px 15px;
+
+    border-radius:11px;
+
+    transition:.25s;
+}
+
+.navLink:hover{
+    color:white;
+    background:rgba(255,255,255,.07);
+}
+
+.navButton{
+
+    color:white;
+    text-decoration:none;
+
+    padding:11px 18px;
+
+    border-radius:12px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #7c3aed,
+            #0891b2
+        );
+
+    box-shadow:
+        0 8px 30px rgba(124,58,237,.25);
+
+    transition:.25s;
+}
+
+.navButton:hover{
+    transform:translateY(-2px);
+}
+
+
+/* =========================
+   HERO
+========================= */
+
+.hero{
+
+    position:relative;
+    z-index:2;
+
+    min-height:680px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    text-align:center;
+
+    padding:90px 20px 70px;
+}
+
+.heroInner{
+    width:100%;
+    max-width:950px;
+}
+
+.badge{
+
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+
+    padding:8px 14px;
+
+    border-radius:100px;
+
+    color:#d8ccff;
+
+    font-size:11px;
+
+    font-weight:700;
+
+    letter-spacing:1.5px;
+
+    background:
+        rgba(124,58,237,.10);
+
+    border:
+        1px solid rgba(167,139,250,.28);
+
+    box-shadow:
+        0 0 35px rgba(124,58,237,.12);
+
+    animation:fadeUp .8s ease both;
+}
+
+.badgeDot{
+
+    width:7px;
+    height:7px;
+
+    border-radius:50%;
+
+    background:#22c55e;
+
+    box-shadow:
+        0 0 12px #22c55e;
+
+    animation:blink 1.5s infinite;
+}
+
+@keyframes blink{
+
+    0%,100%{
+        opacity:1;
+    }
+
+    50%{
+        opacity:.3;
+    }
+}
+
+.hero h1{
+
+    margin-top:25px;
+
+    font-size:
+        clamp(
+            48px,
+            8vw,
+            92px
+        );
+
+    line-height:.95;
+
+    letter-spacing:-5px;
+
+    font-weight:900;
+
+    animation:fadeUp .9s .1s ease both;
+}
+
+.gradientText{
+
+    display:block;
+
+    background:
+        linear-gradient(
+            90deg,
+            #a78bfa,
+            #22d3ee,
+            #e879f9,
+            #a78bfa
+        );
+
+    background-size:300%;
+
+    color:transparent;
+
+    background-clip:text;
+    -webkit-background-clip:text;
+
+    animation:
+        gradientFlow 6s linear infinite;
+}
+
+@keyframes gradientFlow{
+
+    to{
+        background-position:300%;
+    }
+}
+
+.heroDescription{
+
+    max-width:650px;
+
+    margin:30px auto 0;
+
+    color:#9999ab;
+
+    font-size:17px;
+
+    line-height:1.7;
+
+    animation:
+        fadeUp .9s .2s ease both;
+}
+
+
+/* =========================
+   CREATOR
+========================= */
+
+.creator{
+
+    margin:42px auto 0;
+
+    max-width:800px;
+
+    padding:9px;
+
+    display:flex;
+
+    gap:8px;
+
+    border-radius:22px;
+
+    background:
+        rgba(255,255,255,.055);
+
+    border:
+        1px solid rgba(255,255,255,.13);
+
+    box-shadow:
+        0 30px 100px rgba(0,0,0,.45),
+        inset 0 1px rgba(255,255,255,.06);
+
+    backdrop-filter:blur(30px);
+
+    animation:
+        fadeUp 1s .3s ease both;
+}
+
+.inputBox{
+
+    flex:1;
+
+    display:flex;
+    align-items:center;
+
+    gap:12px;
+
+    padding:0 17px;
+}
+
+.inputIcon{
+    font-size:20px;
+}
+
+.inputBox input{
+
+    width:100%;
+
+    border:none;
+    outline:none;
+
+    background:transparent;
+
+    color:white;
+
+    font-size:16px;
+}
+
+.inputBox input::placeholder{
+    color:#666678;
+}
+
+.createButton{
+
+    border:none;
+
+    color:white;
+
+    cursor:pointer;
+
+    padding:17px 25px;
+
+    border-radius:15px;
+
+    font-size:14px;
+
+    font-weight:800;
+
+    background:
+        linear-gradient(
+            135deg,
+            #7c3aed,
+            #0891b2
+        );
+
+    box-shadow:
+        0 10px 35px rgba(124,58,237,.30);
+
+    transition:
+        transform .2s,
+        box-shadow .2s;
+}
+
+.createButton:hover{
+
+    transform:
+        translateY(-3px);
+
+    box-shadow:
+        0 18px 45px rgba(124,58,237,.45);
+}
+
+.createButton:active{
+    transform:scale(.97);
+}
+
+
+/* =========================
+   RESULT
+========================= */
+
+.result{
+
+    max-width:800px;
+
+    margin:15px auto 0;
+
+    padding:18px;
+
+    display:none;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    gap:15px;
+
+    text-align:left;
+
+    border-radius:17px;
+
+    background:
+        rgba(34,197,94,.07);
+
+    border:
+        1px solid rgba(34,197,94,.20);
+
+    animation:
+        resultIn .45s ease both;
+}
+
+.result.show{
+    display:flex;
+}
+
+@keyframes resultIn{
+
+    from{
+        opacity:0;
+        transform:translateY(10px);
+    }
+
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+.result small{
+
+    display:block;
+
+    color:#7e7e8d;
+
+    font-size:11px;
+
+    margin-bottom:5px;
+}
+
+.resultLink{
+
+    color:#67e8f9;
+
+    font-weight:700;
+
+    word-break:break-all;
+}
+
+.copyButton{
+
+    border:none;
+
+    cursor:pointer;
+
+    padding:10px 16px;
+
+    border-radius:10px;
+
+    background:white;
+
+    color:#07070c;
+
+    font-weight:800;
+}
+
+
+/* =========================
+   STATS
+========================= */
+
+.statsSection{
+
+    position:relative;
+    z-index:2;
+
+    max-width:1100px;
+
+    margin:auto;
+
+    padding:0 22px 70px;
+}
+
+.statsGrid{
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(3,1fr);
+
+    gap:18px;
+}
+
+.statCard{
+
+    position:relative;
+
+    overflow:hidden;
+
+    padding:25px;
+
+    border-radius:22px;
+
+    background:
+        rgba(255,255,255,.045);
+
+    border:
+        1px solid rgba(255,255,255,.08);
+
+    backdrop-filter:blur(20px);
+
+    transition:.3s;
+}
+
+.statCard:hover{
+
+    transform:
+        translateY(-6px);
+
+    border-color:
+        rgba(139,92,246,.3);
+
+    box-shadow:
+        0 25px 60px rgba(0,0,0,.3);
+}
+
+.statCard::after{
+
+    content:"";
+
+    position:absolute;
+
+    width:120px;
+    height:120px;
+
+    border-radius:50%;
+
+    right:-60px;
+    top:-60px;
+
+    background:
+        rgba(124,58,237,.15);
+
+    filter:blur(20px);
+}
+
+.statIcon{
+    font-size:24px;
+}
+
+.statLabel{
+
+    display:block;
+
+    margin-top:18px;
+
+    color:#888899;
+
+    font-size:13px;
+}
+
+.statValue{
+
+    display:block;
+
+    margin-top:6px;
+
+    font-size:38px;
+
+    font-weight:900;
+}
+
+
+/* =========================
+   FEATURES
+========================= */
+
+.features{
+
+    position:relative;
+    z-index:2;
+
+    max-width:1100px;
+
+    margin:auto;
+
+    padding:
+        20px 22px
+        100px;
+}
+
+.sectionTitle{
+
+    text-align:center;
+
+    margin-bottom:40px;
+}
+
+.sectionTitle h2{
+
+    font-size:
+        clamp(30px,5vw,48px);
+
+    letter-spacing:-2px;
+}
+
+.sectionTitle p{
+
+    margin-top:12px;
+
+    color:#818191;
+}
+
+.featureGrid{
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(3,1fr);
+
+    gap:18px;
+}
+
+.feature{
+
+    padding:30px;
+
+    border-radius:23px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255,255,255,.065),
+            rgba(255,255,255,.025)
+        );
+
+    border:
+        1px solid rgba(255,255,255,.09);
+
+    transition:.3s;
+}
+
+.feature:hover{
+
+    transform:
+        translateY(-8px);
+
+    border-color:
+        rgba(34,211,238,.25);
+}
+
+.featureIcon{
+
+    width:50px;
+    height:50px;
+
+    display:grid;
+    place-items:center;
+
+    border-radius:15px;
+
+    font-size:23px;
+
+    background:
+        rgba(124,58,237,.13);
+
+    border:
+        1px solid rgba(167,139,250,.15);
+
+    margin-bottom:20px;
+}
+
+.feature h3{
+    font-size:18px;
+}
+
+.feature p{
+
+    color:#858595;
+
+    margin-top:10px;
+
+    line-height:1.6;
+
+    font-size:14px;
+}
+
+
+/* =========================
+   NOTIFICATION
+========================= */
+
+.notification{
+
+    position:fixed;
+
+    z-index:100;
+
+    right:20px;
+    bottom:20px;
+
+    width:min(
+        350px,
+        calc(100% - 40px)
+    );
+
+    padding:17px;
+
+    border-radius:17px;
+
+    background:
+        rgba(16,16,27,.90);
+
+    border:
+        1px solid rgba(139,92,246,.35);
+
+    backdrop-filter:blur(25px);
+
+    box-shadow:
+        0 20px 60px rgba(0,0,0,.45);
+
+    transform:
+        translateY(130px);
+
+    opacity:0;
+
+    transition:.4s;
+}
+
+.notification.show{
+
+    transform:
+        translateY(0);
+
+    opacity:1;
+}
+
+.notificationTitle{
+
+    font-weight:800;
+
+    margin-bottom:5px;
+}
+
+.notificationText{
+
+    color:#9999a9;
+
+    font-size:13px;
+}
+
+
+/* =========================
+   FOOTER
+========================= */
+
+footer{
+
+    position:relative;
+    z-index:2;
+
+    text-align:center;
+
+    padding:30px;
+
+    color:#50505f;
+
+    border-top:
+        1px solid rgba(255,255,255,.06);
+}
+
+
+/* =========================
+   ANIMATION
+========================= */
+
+@keyframes fadeUp{
+
+    from{
+        opacity:0;
+        transform:translateY(25px);
+    }
+
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media(max-width:700px){
+
+    .navbar{
+        padding:0 18px;
+    }
+
+    .navLink{
+        display:none;
+    }
+
+    .hero{
+        padding-top:70px;
+    }
+
+    .hero h1{
+        letter-spacing:-3px;
+    }
+
+    .creator{
+        flex-direction:column;
+    }
+
+    .inputBox{
+        padding:16px;
+    }
+
+    .createButton{
+        width:100%;
+    }
+
+    .statsGrid{
+        grid-template-columns:1fr;
+    }
+
+    .featureGrid{
+        grid-template-columns:1fr;
+    }
+
+    .result{
+        align-items:flex-start;
+        flex-direction:column;
+    }
+
+    .copyButton{
+        width:100%;
+    }
+
+}
+
+
+/* =========================
+   REDUCED MOTION
+========================= */
+
+@media(prefers-reduced-motion:reduce){
+
+    *,
+    *::before,
+    *::after{
+        animation-duration:.01ms !important;
+        animation-iteration-count:1 !important;
+        transition:none !important;
+    }
+
+}
+
+</style>
 </head>
+
 
 <body>
 
-<div class="aurora aurora1"></div>
-<div class="aurora aurora2"></div>
+<!-- BACKGROUND -->
+<div class="grid"></div>
+
+<div class="orb one"></div>
+<div class="orb two"></div>
+<div class="orb three"></div>
+
+
+<!-- NAVBAR -->
 
 <header class="navbar">
 
-  <div class="brand">
-    <span class="brandIcon">✦</span>
-    <span>LinkNova</span>
-  </div>
+    <div class="logo">
 
-  <a href="dashboard.html" class="navButton">
-    Dashboard
-  </a>
+        <div class="logoIcon">
+            ✦
+        </div>
+
+        <span>
+            LinkNova
+        </span>
+
+    </div>
+
+
+    <div class="navRight">
+
+        <a
+            href="#features"
+            class="navLink"
+        >
+            Features
+        </a>
+
+        <a
+            href="#analytics"
+            class="navButton"
+        >
+            Analytics
+        </a>
+
+    </div>
 
 </header>
 
 
-<main class="hero">
 
-  <div class="heroGlow"></div>
+<!-- HERO -->
 
-  <div class="heroContent">
+<main>
 
-    <div class="badge">
-      ⚡ NEXT-GEN LINK ANALYTICS
-    </div>
+<section class="hero">
 
-    <h1>
-      Short Links.
-      <span>Smarter Analytics.</span>
-    </h1>
+    <div class="heroInner">
 
-    <p>
-      Create beautiful short links and understand
-      how your audience interacts with them.
-    </p>
+        <div class="badge">
 
-    <div class="creatorCard">
+            <span class="badgeDot"></span>
 
-      <div class="inputWrapper">
-        <span>🔗</span>
+            SMART LINK ANALYTICS
 
-        <input
-          id="urlInput"
-          type="url"
-          placeholder="Paste your YouTube or website URL..."
+        </div>
+
+
+        <h1>
+
+            Your Links.
+            
+            <span class="gradientText">
+                Your Analytics.
+            </span>
+
+        </h1>
+
+
+        <p class="heroDescription">
+
+            Create smart short links, track clicks,
+            understand your audience and manage
+            every link from one beautiful dashboard.
+
+        </p>
+
+
+        <!-- LINK CREATOR -->
+
+        <div class="creator">
+
+            <div class="inputBox">
+
+                <span class="inputIcon">
+                    🔗
+                </span>
+
+                <input
+                    id="urlInput"
+                    type="url"
+                    placeholder="Paste your YouTube or website link..."
+                    autocomplete="off"
+                >
+
+            </div>
+
+
+            <button
+                id="createButton"
+                class="createButton"
+            >
+
+                Create Short Link
+                &nbsp; →
+
+            </button>
+
+        </div>
+
+
+        <!-- RESULT -->
+
+        <div
+            id="result"
+            class="result"
         >
-      </div>
 
-      <button id="createBtn">
-        Create Link
-        <span>→</span>
-      </button>
+            <div>
+
+                <small>
+                    Your short link
+                </small>
+
+                <div
+                    id="shortLink"
+                    class="resultLink"
+                >
+                    —
+                </div>
+
+            </div>
+
+
+            <button
+                id="copyButton"
+                class="copyButton"
+            >
+                Copy
+            </button>
+
+        </div>
 
     </div>
-
-    <div id="result" class="result hidden">
-
-      <div>
-        <small>Your short link</small>
-        <strong id="shortUrl"></strong>
-      </div>
-
-      <button id="copyBtn">
-        Copy
-      </button>
-
-    </div>
-
-  </div>
-
-</main>
-
-
-<section class="features">
-
-  <div class="featureCard">
-    <div class="featureIcon">⚡</div>
-    <h3>Instant Redirect</h3>
-    <p>Visitors reach the destination immediately.</p>
-  </div>
-
-  <div class="featureCard">
-    <div class="featureIcon">📊</div>
-    <h3>Live Analytics</h3>
-    <p>Track clicks and audience activity.</p>
-  </div>
-
-  <div class="featureCard">
-    <div class="featureIcon">🌍</div>
-    <h3>Global Insights</h3>
-    <p>See approximate country and region data.</p>
-  </div>
 
 </section>
 
 
+
+<!-- STATS -->
+
+<section
+    id="analytics"
+    class="statsSection"
+>
+
+    <div class="statsGrid">
+
+        <div class="statCard">
+
+            <div class="statIcon">
+                👆
+            </div>
+
+            <span class="statLabel">
+                TOTAL CLICKS
+            </span>
+
+            <strong
+                id="clickCount"
+                class="statValue"
+            >
+                0
+            </strong>
+
+        </div>
+
+
+        <div class="statCard">
+
+            <div class="statIcon">
+                🔗
+            </div>
+
+            <span class="statLabel">
+                SHORT LINKS
+            </span>
+
+            <strong
+                id="linkCount"
+                class="statValue"
+            >
+                0
+            </strong>
+
+        </div>
+
+
+        <div class="statCard">
+
+            <div class="statIcon">
+                🌍
+            </div>
+
+            <span class="statLabel">
+                COUNTRIES
+            </span>
+
+            <strong
+                id="countryCount"
+                class="statValue"
+            >
+                0
+            </strong>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- FEATURES -->
+
+<section
+    id="features"
+    class="features"
+>
+
+    <div class="sectionTitle">
+
+        <h2>
+            Everything in one place.
+        </h2>
+
+        <p>
+            A modern control center for your links.
+        </p>
+
+    </div>
+
+
+    <div class="featureGrid">
+
+
+        <div class="feature">
+
+            <div class="featureIcon">
+                ⚡
+            </div>
+
+            <h3>
+                Instant Redirect
+            </h3>
+
+            <p>
+                Visitors can be redirected
+                directly to your destination.
+            </p>
+
+        </div>
+
+
+        <div class="feature">
+
+            <div class="featureIcon">
+                📊
+            </div>
+
+            <h3>
+                Click Analytics
+            </h3>
+
+            <p>
+                Keep track of link activity
+                with persistent analytics.
+            </p>
+
+        </div>
+
+
+        <div class="feature">
+
+            <div class="featureIcon">
+                ⏹️
+            </div>
+
+            <h3>
+                Stop & Resume
+            </h3>
+
+            <p>
+                Temporarily disable a short
+                link whenever you want.
+            </p>
+
+        </div>
+
+
+        <div class="feature">
+
+            <div class="featureIcon">
+                🌍
+            </div>
+
+            <h3>
+                Global Insights
+            </h3>
+
+            <p>
+                View privacy-friendly
+                approximate location insights.
+            </p>
+
+        </div>
+
+
+        <div class="feature">
+
+            <div class="featureIcon">
+                🔔
+            </div>
+
+            <h3>
+                Live Notifications
+            </h3>
+
+            <p>
+                Show new click activity
+                directly inside your dashboard.
+            </p>
+
+        </div>
+
+
+        <div class="feature">
+
+            <div class="featureIcon">
+                ✨
+            </div>
+
+            <h3>
+                Premium UI
+            </h3>
+
+            <p>
+                Smooth motion, glass effects,
+                gradients and responsive design.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+</main>
+
+
+
 <footer>
-  LinkNova © 2026
+
+    LinkNova © 2026 · Smart Link Analytics
+
 </footer>
 
 
-<script src="app.js"></script>
+
+<!-- NOTIFICATION -->
+
+<div
+    id="notification"
+    class="notification"
+>
+
+    <div class="notificationTitle">
+        ✨ Link Created
+    </div>
+
+    <div
+        id="notificationText"
+        class="notificationText"
+    >
+        Your short link is ready.
+    </div>
+
+</div>
+
+
+
+<script>
+
+/* =========================
+   LOCAL DEMO DATA
+========================= */
+
+let links = JSON.parse(
+    localStorage.getItem("linknova_links") || "[]"
+);
+
+
+/* =========================
+   ELEMENTS
+========================= */
+
+const urlInput =
+    document.getElementById("urlInput");
+
+const createButton =
+    document.getElementById("createButton");
+
+const result =
+    document.getElementById("result");
+
+const shortLink =
+    document.getElementById("shortLink");
+
+const copyButton =
+    document.getElementById("copyButton");
+
+const notification =
+    document.getElementById("notification");
+
+const notificationText =
+    document.getElementById("notificationText");
+
+
+/* =========================
+   CREATE DEMO LINK
+========================= */
+
+createButton.addEventListener(
+    "click",
+    createLink
+);
+
+
+urlInput.addEventListener(
+    "keydown",
+    function(event){
+
+        if(event.key === "Enter"){
+            createLink();
+        }
+
+    }
+);
+
+
+function createLink(){
+
+    const destination =
+        urlInput.value.trim();
+
+
+    if(!destination){
+
+        showNotification(
+            "Please paste a URL first."
+        );
+
+        urlInput.focus();
+
+        return;
+    }
+
+
+    let parsedURL;
+
+    try{
+
+        parsedURL =
+            new URL(destination);
+
+    }
+
+    catch{
+
+        showNotification(
+            "Please enter a valid URL."
+        );
+
+        return;
+    }
+
+
+    createButton.disabled = true;
+
+    createButton.innerHTML =
+        "Creating...";
+
+
+    setTimeout(function(){
+
+        const id =
+            randomID();
+
+
+        const link = {
+
+            id:id,
+
+            destination:
+                parsedURL.href,
+
+            clicks:0,
+
+            createdAt:
+                new Date().toISOString()
+
+        };
+
+
+        links.push(link);
+
+
+        localStorage.setItem(
+            "linknova_links",
+            JSON.stringify(links)
+        );
+
+
+        /*
+          DEMO SHORT URL.
+
+          Real redirect will be connected
+          after backend setup.
+        */
+
+        const demoURL =
+            window.location.origin +
+            window.location.pathname +
+            "?go=" +
+            id;
+
+
+        shortLink.textContent =
+            demoURL;
+
+
+        result.classList.add(
+            "show"
+        );
+
+
+        copyButton.onclick =
+            async function(){
+
+                try{
+
+                    await navigator.clipboard.writeText(
+                        demoURL
+                    );
+
+                    copyButton.textContent =
+                        "Copied ✓";
+
+                    setTimeout(
+                        function(){
+
+                            copyButton.textContent =
+                                "Copy";
+
+                        },
+                        1500
+                    );
+
+                }
+
+                catch{
+
+                    showNotification(
+                        "Copy failed. Copy the link manually."
+                    );
+
+                }
+
+            };
+
+
+        updateStats();
+
+
+        showNotification(
+            "Your short link is ready."
+        );
+
+
+        urlInput.value = "";
+
+
+        createButton.disabled =
+            false;
+
+        createButton.innerHTML =
+            "Create Short Link &nbsp; →";
+
+
+    },700);
+
+}
+
+
+/* =========================
+   RANDOM ID
+========================= */
+
+function randomID(){
+
+    return Math.random()
+        .toString(36)
+        .substring(2,8)
+        .toUpperCase();
+
+}
+
+
+/* =========================
+   STATS
+========================= */
+
+function updateStats(){
+
+    const totalClicks =
+        links.reduce(
+            function(total,link){
+
+                return total +
+                    Number(link.clicks || 0);
+
+            },
+            0
+        );
+
+
+    document.getElementById(
+        "clickCount"
+    ).textContent =
+        totalClicks;
+
+
+    document.getElementById(
+        "linkCount"
+    ).textContent =
+        links.length;
+
+
+    /*
+      Demo currently has no real
+      country data.
+    */
+
+    document.getElementById(
+        "countryCount"
+    ).textContent =
+        "—";
+
+}
+
+
+/* =========================
+   NOTIFICATION
+========================= */
+
+function showNotification(message){
+
+    notificationText.textContent =
+        message;
+
+    notification.classList.add(
+        "show"
+    );
+
+
+    setTimeout(
+        function(){
+
+            notification.classList.remove(
+                "show"
+            );
+
+        },
+        3000
+    );
+
+}
+
+
+/* =========================
+   INITIAL LOAD
+========================= */
+
+updateStats();
+
+
+/* =========================
+   DEMO LINK HANDLING
+========================= */
+
+const params =
+    new URLSearchParams(
+        window.location.search
+    );
+
+const go =
+    params.get("go");
+
+
+if(go){
+
+    const found =
+        links.find(
+            function(link){
+                return link.id === go;
+            }
+        );
+
+
+    if(found){
+
+        /*
+          Demo only.
+
+          Real version will record the
+          click on the server and then
+          redirect to YouTube.
+        */
+
+        found.clicks =
+            Number(found.clicks || 0) + 1;
+
+
+        localStorage.setItem(
+            "linknova_links",
+            JSON.stringify(links)
+        );
+
+
+        /*
+          In the frontend demo we don't
+          automatically redirect because
+          there is no secure backend yet.
+        */
+
+        setTimeout(
+            function(){
+
+                window.history.replaceState(
+                    {},
+                    document.title,
+                    window.location.pathname
+                );
+
+            },
+            1000
+        );
+
+    }
+
+}
+
+</script>
 
 </body>
 </html>
